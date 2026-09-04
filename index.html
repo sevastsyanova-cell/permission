@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Разрешить себе хотеть и иметь</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: #0B0B0B;
+      color: #FFFFFF;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding: 16px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 10px 0 40px;
+    }
+    .card {
+      background: #1A1A1A;
+      border-radius: 24px;
+      padding: 32px 28px;
+      margin-bottom: 28px;
+      border: 1px solid #2A2A2A;
+    }
+    .card-light { background: #141414; }
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+    h2 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.3px;
+    }
+    h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #D4A54A;
+    }
+    p {
+      font-size: 16px;
+      color: #D0D0D0;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, #D4A54A 0%, #B8832E 100%);
+      color: #0B0B0B;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 14px 36px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.3px;
+    }
+    .btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 30px rgba(212, 165, 74, 0.25);
+    }
+    .btn-block { display: block; width: 100%; text-align: center; }
+    .btn-secondary {
+      background: #2A2A2A;
+      color: #FFFFFF;
+    }
+    .btn-secondary:hover {
+      background: #3A3A3A;
+      box-shadow: 0 8px 20px rgba(255,255,255,0.05);
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .btn-group .btn { flex: 1; min-width: 140px; text-align: center; }
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      background: #2A2A2A;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #D4A54A, #E8C86A);
+      border-radius: 10px;
+      transition: width 0.4s ease;
+    }
+    .progress-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #D4A54A;
+      min-width: 40px;
+      text-align: right;
+    }
+    .question-text {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 16px 0 24px;
+    }
+    .options label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #252525;
+      padding: 14px 18px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+      border: 1px solid transparent;
+      font-size: 15px;
+      color: #E0E0E0;
+    }
+    .options label:hover { background: #2F2F2F; }
+    .options input[type="radio"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 2px solid #555;
+      flex-shrink: 0;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .options input[type="radio"]:checked {
+      border-color: #D4A54A;
+      background: #D4A54A;
+      box-shadow: 0 0 0 3px rgba(212, 165, 74, 0.2);
+    }
+    .options input[type="radio"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background: #0B0B0B;
+      border-radius: 50%;
+    }
+    .result-percent {
+      font-size: 72px;
+      font-weight: 800;
+      text-align: center;
+      color: #D4A54A;
+      margin: 20px 0 10px;
+    }
+    .scale-container {
+      margin: 20px 0 30px;
+      padding: 0 10px;
+    }
+    .scale-bar {
+      position: relative;
+      height: 8px;
+      background: #2A2A2A;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+    .scale-fill {
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #E85A5A, #E8C86A, #5AE89A);
+      width: 0%;
+      transition: width 0.8s ease;
+    }
+    .scale-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #808080;
+    }
+    .scale-marker {
+      position: absolute;
+      top: -8px;
+      width: 4px;
+      height: 24px;
+      background: #FFFFFF;
+      border-radius: 4px;
+      transition: left 0.8s ease;
+    }
+    .blind-spot {
+      background: #252525;
+      padding: 16px 18px;
+      border-radius: 14px;
+      border-left: 4px solid #E85A5A;
+      margin-bottom: 14px;
+    }
+    .blind-spot strong { color: #E85A5A; }
+    .tools-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 12px 0;
+    }
+    .tools-table th, .tools-table td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid #2A2A2A;
+    }
+    .tools-table th { color: #B0B0B0; font-weight: 500; }
+    .tools-table a { color: #D4A54A; text-decoration: none; word-break: break-all; }
+    .tools-table a:hover { text-decoration: underline; }
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 24px;
+      margin: 8px 0;
+    }
+    .contact-links a { color: #D4A54A; text-decoration: none; font-size: 14px; }
+    .contact-links a:hover { text-decoration: underline; }
+    .footer {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid #2A2A2A;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer .copy { font-size: 14px; color: #606060; }
+    .footer .disclaimer {
+      font-size: 13px;
+      color: #505050;
+      line-height: 1.5;
+      max-width: 700px;
+    }
+    .screen { display: none; }
+    .screen.active { display: block; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 640px) {
+      body { padding: 12px; }
+      .container { padding: 10px 0 20px; }
+      .card { padding: 20px 16px; }
+      h1 { font-size: 24px; }
+      h2 { font-size: 20px; }
+      .btn-group { flex-direction: column; }
+      .btn-group .btn { width: 100%; min-width: unset; }
+      .options label { font-size: 14px; padding: 12px 14px; }
+      .btn { font-size: 15px; padding: 12px 28px; width: 100%; }
+      .result-percent { font-size: 48px; }
+      .tools-table { font-size: 13px; }
+      .tools-table th, .tools-table td { padding: 10px 8px; word-break: break-word; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="app">
+
+  <!-- ===== ЭКРАН 1: ВСТУПЛЕНИЕ ===== -->
+  <section class="screen active" id="screen-intro">
+    <div class="card">
+      <h1>Тест, который поможет понять, почему у тебя ещё нет того, что ты хочешь. Больше денег, квартира, машина, путешествие. Узнай за 2 минуты, разрешаешь ли ты себе это иметь.</h1>
+      <p>Тебе кажется, что ты знаешь, чего ты хочешь. И ты даже знаешь, как это получить.</p>
+      <p>Но почему-то оно не приходит. Не появляется в твоей жизни.</p>
+      <p>Или получается, но не так, как ты хотела.</p>
+      <p>Возможно, дело не в том, что ты делаешь. А в том, разрешаешь ли ты себе это действительно иметь или нет.</p>
+      <p>Этот тест покажет, есть ли у тебя внутреннее разрешение на желаемое. 15 простых вопросов помогут тебе это понять.</p>
+      <button class="btn btn-block" onclick="startTest()">Начать тест</button>
+    </div>
+  </section>
+
+  <!-- ===== ЭКРАН 2: ТЕСТ ===== -->
+  <section class="screen" id="screen-test">
+    <div class="card">
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <span class="progress-label" id="progressLabel">1/15</span>
+      </div>
+      <p style="font-size:14px; color:#A0A0A0; margin-bottom:16px;">Отвечай честно. Не думай долго. Какой ответ приходит первым — тот и верный.</p>
+      <div id="questionContainer">
+        <div class="question-text" id="qText"></div>
+        <div class="options" id="qOptions"></div>
+      </div>
+      <button class="btn btn-block" id="nextBtn" onclick="nextQuestion()">Далее</button>
+    </div>
+  </section>
+
+  <!-- ===== ЭКРАН 3: РЕЗУЛЬТАТ ===== -->
+  <section class="screen" id="screen-result">
+    <div class="card">
+      <h2 style="text-align:center;">Твой процент разрешения</h2>
+      <div class="result-percent" id="resultPercent">0%</div>
+      <div class="scale-container">
+        <div class="scale-bar">
+          <div class="scale-fill" id="scaleFill"></div>
+          <div class="scale-marker" id="scaleMarker" style="left:0%;"></div>
+        </div>
+        <div class="scale-labels">
+          <span>0%</span>
+          <span>25%</span>
+          <span>50%</span>
+          <span>75%</span>
+          <span>100%</span>
+        </div>
+      </div>
+      <div id="resultDescription" style="background:#252525; padding:16px; border-radius:14px; margin:16px 0;"></div>
+      
+      <h3 style="margin-top:24px;">Твои слепые пятна</h3>
+      <div id="blindSpotsContainer"></div>
+
+      <div style="background:#1A1A1A; padding:16px; border-radius:14px; border-left:4px solid #D4A54A; margin-top:24px;">
+        <p style="font-size:15px; margin-bottom:8px;"><strong>Это краткая версия теста.</strong> Она показывает твой общий процент и три слепых пятна. Но за ними — целая картина твоих внутренних блоков, которые держат тебя на месте.</p>
+        <p style="font-size:15px;">Если хочешь увидеть полную картину и разобрать, что именно мешает тебе разрешить себе желаемое — приходи на личную консультацию.</p>
+      </div>
+
+      <div class="btn-group" style="margin-top:16px;">
+        <a href="https://t.me/katerinasevstsyanova" target="_blank" class="btn">Написать в Telegram</a>
+        <a href="https://vk.ru/whatever505" target="_blank" class="btn btn-secondary">Написать ВКонтакте</a>
+      </div>
+    </div>
+
+    <!-- Кнопка для перехода к финальным блокам -->
+    <button class="btn btn-block" onclick="showFinal()" style="margin-top:12px;">Перейти к бонусам →</button>
+  </section>
+
+  <!-- ===== ЭКРАН 4: ФИНАЛЬНЫЙ ===== -->
+  <section class="screen" id="screen-final">
+    <!-- Стеклянный потолок -->
+    <div class="card">
+      <h2>🎁 Стеклянный потолок в деньгах</h2>
+      <p>Это игра, в которую мы играем. Точнее, наше подсознание играет с нами. А называется это стратегией. В отношениях с деньгами тоже есть определённые паттерны поведения, игры. Если хочешь узнать свою стратегию, то дам задание на 30 секунд, а потом расшифрую. Можно узнать о себе много интересного в разрезе денег.</p>
+      <div class="btn-group" style="margin-top:12px;">
+        <a href="https://t.me/katerinasevstsyanova" target="_blank" class="btn">Написать ИГРА в Telegram</a>
+        <a href="https://vk.ru/whatever505" target="_blank" class="btn btn-secondary">Написать ИГРА ВКонтакте</a>
+      </div>
+    </div>
+
+    <!-- Встреча-знакомство -->
+    <div class="card card-light">
+      <h2>🤝 Встреча-знакомство</h2>
+      <p>Если у тебя остались вопросы или хочешь, чтобы я посмотрела на твою ситуацию целиком, записывайся на 20-минутную встречу-знакомство. Перекинет в Телегу или ВК, напиши слово ЗНАКОМСТВО.</p>
+      <div class="btn-group" style="margin-top:12px;">
+        <a href="https://t.me/katerinasevstsyanova" target="_blank" class="btn">Записаться в Telegram</a>
+        <a href="https://vk.ru/whatever505" target="_blank" class="btn btn-secondary">Записаться ВКонтакте</a>
+      </div>
+    </div>
+
+    <!-- Благодарность -->
+    <div class="card">
+      <h2>💌 Благодарность и вопросы</h2>
+      <p>Если захочется сказать спасибо или поделиться мыслями:</p>
+      <p><a href="https://t.me/katerinasevstsyanova" target="_blank" style="color: #D4A54A; text-decoration: none; font-weight: 500;">@katerinasevstsyanova</a></p>
+      <div class="contact-links">
+        <a href="https://t.me/vsemozhnomne" target="_blank">📬 Телеграм-канал «Мне можно всё»</a>
+        <a href="https://www.youtube.com/@%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B0%D0%A1%D0%B5%D0%B2%D0%BE%D1%81%D1%82%D1%8C%D1%8F%D0%BD%D0%BE%D0%B2%D0%B0_%D0%BA%D0%BE%D1%83%D1%87" target="_blank">▶️ YouTube</a>
+        <a href="https://vk.ru/whatever505" target="_blank">📚 ВКонтакте</a>
+      </div>
+    </div>
+
+    <!-- Инструменты -->
+    <div class="card card-light">
+      <h2>🛠 Дополнительные инструменты</h2>
+      <table class="tools-table">
+        <thead><tr><th>Название</th><th>Что делает</th><th>Ссылка</th></tr></thead>
+        <tbody>
+          <tr><td>Профиль поглаживаний</td><td>Помогает понять, как ты обмениваешься признанием</td><td><a href="https://sevastsyanova-cell.github.io/stroke/" target="_blank">перейти</a></td></tr>
+          <tr><td>Авторизация результатов</td><td>Сохраняет результаты тестов, показывает прогресс</td><td><a href="https://sevastsyanova-cell.github.io/avtorizaz/" target="_blank">перейти</a></td></tr>
+          <tr><td>Калькулятор приоритетов</td><td>Помогает услышать себя и выбрать, с чего начать</td><td><a href="https://sevastsyanova-cell.github.io/wish/" target="_blank">перейти</a></td></tr>
+          <tr><td>Выгрузка мусора из головы</td><td>Практика для освобождения от навязчивых мыслей</td><td><a href="https://sevastsyanova-cell.github.io/discharge/" target="_blank">перейти</a></td></tr>
+          <tr><td>Саморегуляция (дыхание)</td><td>Видео-практика для восстановления энергии</td><td><a href="https://youtu.be/2MUIfe49USw" target="_blank">смотреть</a></td></tr>
+          <tr><td>Мини-курс в Telegram</td><td>«Разрешаю себе чувствовать»</td><td><a href="https://t.me/+ZbtgpDqcnTVlNTA6" target="_blank">перейти</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Контакты -->
+    <div class="card">
+      <h2>📌 Наши контакты</h2>
+      <div class="contact-links">
+        <a href="https://t.me/katerinasevstsyanova" target="_blank">Telegram (личный)</a>
+        <a href="https://vk.ru/whatever505" target="_blank">ВКонтакте</a>
+        <a href="https://t.me/vsemozhnomne" target="_blank">Telegram-канал</a>
+        <a href="https://www.youtube.com/@%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B0%D0%A1%D0%B5%D0%B2%D0%BE%D1%81%D1%82%D1%8C%D1%8F%D0%BD%D0%BE%D0%B2%D0%B0_%D0%BA%D0%BE%D1%83%D1%87" target="_blank">YouTube</a>
+      </div>
+    </div>
+
+    <!-- Футер -->
+    <div class="footer">
+      <div class="copy">© Екатерина Севостьянова, 2026</div>
+      <div class="disclaimer">Результаты теста — не диагноз и не заменяют работу с психологом. Это инструмент самопознания, который помогает увидеть возможные зоны роста. Если вы чувствуете, что вам нужна профессиональная поддержка, обратитесь к специалисту.</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // ===== ДАННЫЕ ТЕСТА =====
+  const questions = [
+    "Когда ты думаешь о том, чего хочешь — у тебя есть ощущение, что это твоё по праву рождения? Что тебе не нужно никому ничего объяснять или оправдываться?",
+    "Ты чувствуешь, что для того, чтобы получить желаемое, тебе придётся стать другим человеком или притворяться?",
+    "Твоё желание ощущается лёгким, как будто оно уже часть тебя?",
+    "Ты делаешь что-то, потому что так правильно или так надо? И при этом не слушаешь свои чувства?",
+    "Когда ты думаешь о желаемом, ты чувствуешь энергию, подъём и вдохновение?",
+    "Когда ты думаешь о желаемом, ты чувствуешь сверхважность? Что если этого не случится, то жизнь станет пустой?",
+    "Ты чувствуешь внутренние ограничения, когда думаешь о желаемом? Есть у тебя внутренние «нельзя» или «но»?",
+    "Ты чувствуешь, что тебе нужно кому-то что-то доказывать? Маме, окружающим, себе?",
+    "Ты принимаешь это желание без всяких условий? Или внутри есть «да, но…»?",
+    "Ты готова взять ответственность за то, что это желание случится в твоей жизни?",
+    "Это твоё искреннее желание? Или ты хочешь этого, чтобы получить любовь или внимание?",
+    "Когда ты думаешь о желаемом, ты чувствуешь спокойствие? Или появляется тревога?",
+    "Ты боишься, что желаемое не случится или что ты его потеряешь?",
+    "Ты чувствуешь спокойствие, даже если это никогда не произойдёт?",
+    "Ты хочешь этого для себя? Или для кого-то другого?"
+  ];
+
+  // Расшифровки для слепых пятен (по каждому вопросу)
+  const blindSpotTexts = [
+    "Разрешение — это твоя самоценность. Насколько эта цена внутри себя, настолько и ты можешь дать себе разрешение. Начни смотреть в сторону своей самоценности.",
+    "Это обесценивает тебя настоящую. Попробуй спросить: «А что, если я могу получить это, оставаясь собой?» Если ответ «нет» — посмотри в сторону своих зон роста. Тебе не нужно себя переделывать. Важно посмотреть, где я могу стать лучшей версией себя.",
+    "Это не значит, что ты что-то делаешь не так. Это значит, что ты пока не разрешила себе просто хотеть. Разреши себе хотя бы представить, что оно может быть лёгким.",
+    "Это не про слабость. Это про то, что ты не доверяешь себе. Начни с малого — спроси себя: «А что я сейчас чувствую на самом деле?» Это и есть твоя опора.",
+    "Это не лень. Это твоя психика говорит: «я устала». От сверхважности. Попробуй снизить ставки. Просто позволь себе хотеть без напряжения.",
+    "Это давление не даёт ему прийти. Попробуй разрешить себе хотеть без привязки к результату. Желание не должно стать смыслом твоей жизни.",
+    "Спроси себя: «Кто сказал, что мне нельзя?» А потом задай себе вопрос: насколько ты ценна для себя сейчас? И как сделать так, чтобы тебе было можно?",
+    "Это отнимает энергию. Попробуй представить, что тебе не нужно ничего доказывать. Как изменится твоё отношение по поводу желания? А хочется ли оно тебе на самом деле?",
+    "Условия — это способ сказать себе: «я пока не достойна». Но желание — оно просто есть. Разреши себе хотеть без условий. Ты уже имеешь на это право. Самоценность не надо заслуживать.",
+    "Но ответственность — это не про гарантию результата. Это про то, что я выбираю хотеть. И это уже большой шаг.",
+    "Это способ закрыть дефицит. Попробуй спросить себя: «А что бы я хотела, если бы меня уже любили?»",
+    "Ты не знаешь, что будет, если желаемое случится. И не знаешь, что будет, если не случится. Тревога блокирует разрешение. Попробуй спросить себя: «А что, если я просто позволю этому быть? Как изменится моя реальность?»",
+    "Это держит тебя в напряжении. Попробуй разрешить себе хотеть без страха. Это безопасно.",
+    "Это значит, что ты привязана к результату. Попробуй разрешить себе хотеть без привязки к исходу. Просто позволь себе желать. Это безопасно.",
+    "Это значит, что в твоём желании есть оттенок жертвенности. Попробуй спросить себя: «А что бы я хотела, если бы никому не нужно было угождать?»"
+  ];
+
+  const answers = [];
+  let currentQ = 0;
+  const optionLabels = ['Точно да', 'Скорее да', 'И да, и нет', 'Скорее нет', 'Точно нет'];
+  const optionValues = [100, 75, 50, 25, 0];
+
+  // ===== ОТОБРАЖЕНИЕ ВОПРОСОВ =====
+  function renderQuestion(index) {
+    const q = questions[index];
+    document.getElementById('qText').textContent = q;
+    const optDiv = document.getElementById('qOptions');
+    optDiv.innerHTML = '';
+    optionLabels.forEach((label, i) => {
+      const val = optionValues[i];
+      const id = 'q' + index + '_' + i;
+      const div = document.createElement('label');
+      div.innerHTML = `<input type="radio" name="q${index}" value="${val}" id="${id}"> ${label}`;
+      optDiv.appendChild(div);
+    });
+    document.getElementById('progressFill').style.width = ((index) / questions.length * 100) + '%';
+    document.getElementById('progressLabel').textContent = (index + 1) + '/' + questions.length;
+    document.getElementById('nextBtn').textContent = (index === questions.length - 1) ? 'Узнать результат' : 'Далее';
+    
+    if (answers[index]) {
+      const radios = document.querySelectorAll(`input[name="q${index}"]`);
+      radios.forEach(r => { if (parseInt(r.value) === answers[index]) r.checked = true; });
+    }
+  }
+
+  function nextQuestion() {
+    const selected = document.querySelector(`input[name="q${currentQ}"]:checked`);
+    if (!selected) {
+      alert('Пожалуйста, выбери вариант ответа.');
+      return;
+    }
+    answers[currentQ] = parseInt(selected.value);
+    if (currentQ < questions.length - 1) {
+      currentQ++;
+      renderQuestion(currentQ);
+    } else {
+      showResult();
+    }
+  }
+
+  function startTest() {
+    currentQ = 0;
+    renderQuestion(0);
+    showScreen('test');
+  }
+
+  // ===== НАВИГАЦИЯ =====
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    const map = {
+      'intro': 'screen-intro',
+      'test': 'screen-test',
+      'result': 'screen-result',
+      'final': 'screen-final'
+    };
+    const el = document.getElementById(map[id] || 'screen-intro');
+    if (el) el.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ===== РЕЗУЛЬТАТ =====
+  function showResult() {
+    const total = answers.reduce((sum, val) => sum + val, 0);
+    const percent = Math.round(total / questions.length);
+    
+    document.getElementById('resultPercent').textContent = percent + '%';
+    
+    // Шкала
+    const fill = document.getElementById('scaleFill');
+    const marker = document.getElementById('scaleMarker');
+    setTimeout(() => {
+      fill.style.width = percent + '%';
+      marker.style.left = percent + '%';
+    }, 100);
+
+    // Расшифровка диапазона
+    let desc = '';
+    if (percent === 100) desc = 'У тебя безоговорочное разрешение самой себе. Иметь или делать это. Жди — в ближайшее время это появится в твоей реальности.';
+    else if (percent >= 80) desc = 'Ты почти разрешила себе это. Остался один маленький шаг — снять последний блок. Посмотри на свои слепые пятна ниже.';
+    else if (percent >= 60) desc = 'Ты на границе. Где-то разрешаешь, где-то сомневаешься. Есть зоны, где ты всё ещё ставишь себе условия.';
+    else if (percent >= 40) desc = 'Ты скорее сомневаешься, чем разрешаешь. Внутри есть голос, который говорит «надо заслужить».';
+    else if (percent >= 20) desc = 'Ты живёшь в режиме «заслужи». Твоя психика будет искать препятствия и выгорание. Начни с малого. Разреши себе одно реальное желание. Без условий. Без доказательств.';
+    else desc = 'Ты почти не разрешаешь себе желать. Это как будто запрещено — даже думать о том, чего ты хочешь. Но если спросить себя: «Кто сказал, что мне нельзя?» — ответ может удивить. Разрешение начинается с этого вопроса.';
+    document.getElementById('resultDescription').innerHTML = '<p style="margin:0;">' + desc + '</p>';
+
+    // Слепые пятна: 3 самых низких балла
+    const indexed = answers.map((val, idx) => ({ idx, val }));
+    indexed.sort((a, b) => a.val - b.val);
+    const lowest = indexed.slice(0, 3);
+    
+    const container = document.getElementById('blindSpotsContainer');
+    container.innerHTML = '';
+    lowest.forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = 'blind-spot';
+      const qText = questions[item.idx].length > 80 ? questions[item.idx].substring(0, 80) + '…' : questions[item.idx];
+      div.innerHTML = `<strong>🔴 ${i+1}.</strong> ${qText}<br><span style="font-size:14px; color:#C0C0C0;">${blindSpotTexts[item.idx]}</span>`;
+      container.appendChild(div);
+    });
+
+    showScreen('result');
+  }
+
+  function showFinal() {
+    showScreen('final');
+  }
+
+  // ===== ИНИЦИАЛИЗАЦИЯ =====
+  showScreen('intro');
+</script>
+
+</body>
+</html>
